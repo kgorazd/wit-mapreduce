@@ -4,7 +4,11 @@
 
 import sys
 
+DATA_LENGTH = 6
+
 for line in sys.stdin:
     data = line.strip().split("\t")
-    date, time, store, item, cost, payment = data
-    print "{0}\t{1}".format(store, cost)
+    if len(data) == DATA_LENGTH:
+        date, time, store, item, cost, payment = data
+        print "{0}\t{1}".format(store, cost)
+

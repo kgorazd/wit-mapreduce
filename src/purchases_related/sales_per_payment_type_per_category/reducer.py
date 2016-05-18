@@ -4,8 +4,12 @@ import sys
 
 DATA_LENGTH = 2
 
-sales_total = 0
+total_sales = -1
 old_key = None
+
+def print_to_result():
+    category, payment = old_key.split("_")
+    print category, "\t", payment, "\t", total_sales
 
 for line in sys.stdin:
     data_mapped = line.strip().split("\t")
@@ -15,13 +19,12 @@ for line in sys.stdin:
     current_key, current_sale = data_mapped
 
     if old_key and old_key != current_key:
-        print old_key, "\t", sales_total
+        print_to_result()
         old_key = current_key
-        sales_total = 0
+        total_sales = 0
 
     old_key = current_key
-    sales_total += float(current_sale)
+    total_sales += float(current_sale)
 
 if old_key != None:
-    print old_key, "\t", sales_total
-
+    print_to_result()
