@@ -2,8 +2,10 @@
 
 import sys
 
-total_hits = 0
+current_count = 0
 old_key = None
+max_count = -1
+max_key = None
 
 for line in sys.stdin:
     data_mapped = line.strip().split("\t")
@@ -13,13 +15,15 @@ for line in sys.stdin:
     this_key = data_mapped[0]
 
     if old_key and old_key != this_key:
-        print old_key, "\t", total_hits
         old_key = this_key;
-        total_hits = 0
+        current_count = 0
 
     old_key = this_key
-    total_hits += 1
+    current_count += 1
+    if current_count > max_count:
+        max_count = current_count
+        max_key = this_key
 
 if old_key != None:
-    print old_key, "\t", total_hits
+    print max_key, "\t", max_count
 
